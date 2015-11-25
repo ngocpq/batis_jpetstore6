@@ -25,7 +25,6 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.SessionScope;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 
@@ -33,12 +32,13 @@ import org.mybatis.jpetstore.domain.Account;
 import org.mybatis.jpetstore.domain.Product;
 import org.mybatis.jpetstore.service.AccountService;
 import org.mybatis.jpetstore.service.CatalogService;
+import org.springframework.beans.factory.annotation.Configurable;
 
 /**
  * @author Eduardo Macarron
  *
  */
-@SessionScope
+@Configurable
 public class AccountActionBean extends AbstractActionBean {
 
   private static final long serialVersionUID = 5499663666155758178L;
