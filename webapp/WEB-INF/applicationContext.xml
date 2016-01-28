@@ -24,12 +24,15 @@
 		<jdbc:script location="classpath:database/jpetstore-hsqldb-dataload.sql" />
 	</jdbc:embedded-database>
 
-	<!-- Kieker's instrumentation probes based on the Spring AOP interception 
-		framework -->
+	<!-- Kieker's instrumentation probes based on the Spring AOP interception framework --> 
 	<bean id="opEMII" class="kieker.monitoring.probe.spring.executions.OperationExecutionMethodInvocationInterceptor" /> 
+	<!-- <bean id="opEMII" class="kieker.monitoring.probe.spring.executions.OperationExecutionAdaptiveMethodInvocationInterceptor" />  -->
+	
+	<!-- <bean id="opEMII" class="kieker.monitoring.probe.spring.flow.OperationExecutionMethodInvocationInterceptor" /> --> 
 	<aop:config>
-		<aop:advisor advice-ref="opEMII" pointcut="execution(public	* org.mybatis.jpetstore..*.*(..))"/>
-	</aop:config>
+		<aop:advisor advice-ref="opEMII" pointcut="execution(public	* org.mybatis.jpetstore..*.*(..))"/>		
+		<!-- <aop:advisor advice-ref="opEMII" pointcut="execution(public	* net.sourceforge.stripes.controller.DispatcherServlet.*(..))"/> -->
+	</aop:config>	
 
 	<!-- transaction manager, use JtaTransactionManager for global tx -->
 	<bean id="transactionManager"
@@ -41,10 +44,7 @@
 	<context:component-scan base-package="org.mybatis.jpetstore.service,org.mybatis.jpetstore.web.actions" />
 
 	<!-- enable transaction demarcation with annotations -->
-	<tx:annotation-driven />
-	<!-- <context:spring-configured />
-	<context:annotation-config />
-	<tx:annotation-driven transaction-manager="transactionManager" mode="aspectj" /> -->
+	<tx:annotation-driven />	
 
 	<!-- define the SqlSessionFactory -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
